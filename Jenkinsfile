@@ -1,3 +1,3 @@
 node {
-   echo 'Hello Worldcvcvckk'
+   echo 'Hello World7'
 }
