@@ -1,3 +1,3 @@
 node {
-   echo 'Hello World8884'
+   echo 'Hello devops'
 }
