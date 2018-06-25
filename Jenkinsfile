@@ -1,6 +1,6 @@
 // comment
 node {
-def mvnHome = tool 'maven-3.5.4'
+def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
 stage('Clean workspace before build') {
     step([$class: 'WsCleanup'])
