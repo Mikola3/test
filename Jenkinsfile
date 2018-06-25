@@ -8,7 +8,7 @@ stage('git') {
  }
 stage('Build') {
      // sh '/opt/maven/bin/mvn -f pom.xml clean install'
-     mvn -f pom.xml clean install'
+     sh 'mvn -f pom.xml clean install'
 }
 stage ('Run') {
     sh 'java -jar target/my-app-1.0-SNAPSHOT.jar'
