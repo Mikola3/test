@@ -1,3 +1,4 @@
+// comment
 node {
 stage('Clean workspace before build') {
     step([$class: 'WsCleanup'])
