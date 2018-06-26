@@ -1,8 +1,10 @@
 // some comment2
+properties([
+  parameters([
+    string(name: 'DEPLOY_ENV', defaultValue: 'TESTING', description: 'The target environment', )
+   ])
+])
 node {
-stage ('Greet') {
-    sh 'echo "${params.Greeting} World!"'
-}    
 def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
 stage('Clean workspace before build') {
