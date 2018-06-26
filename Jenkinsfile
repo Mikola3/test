@@ -1,8 +1,10 @@
 // some comment2
 node {
-parameters {
-        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
-    }
+properties([
+  parameters([
+    string(name: 'DEPLOY_ENV', defaultValue: 'TESTING', description: 'The target environment', )
+   ])
+])
 stage ('Greet') {
     sh 'echo "${params.Greeting} World!"'
 }    
