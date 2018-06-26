@@ -7,7 +7,10 @@ stage('Clean workspace before build') {
  }
 stage('git') {
     git branch: 'master', url: 'https://github.com/Mikola3/simple-java-maven-app.git'
- }
+}
+stage('pollSCM') {
+    properties([pipelineTriggers([pollSCM('* * * * *')])])
+}    
 stage('Build') {
      //sh '/opt/maven/bin/mvn -f pom.xml clean install'
      sh '/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/Maven_3.5.4/bin/mvn -f pom.xml clean install'
