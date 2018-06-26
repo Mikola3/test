@@ -1,6 +1,6 @@
 // some comment2
-properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
 node {
+    properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
 def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
 stage('Clean workspace before build') {
