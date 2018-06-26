@@ -1,6 +1,10 @@
 // some comment2
 node {
-    properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
+properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
+
+stage ('echo') {
+    echo "Will deploy to ${DEPLOY_ENV}"
+}
 def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
 stage('Clean workspace before build') {
@@ -22,5 +26,4 @@ stage ('Run') {
 stage ('Unarchive & Archive') {
     sh 'tar -czf ${WORKSPACE}/pipeline-${BUILD_NUMBER}.tar.gz target/my-app-1.0-SNAPSHOT.jar'
 }
-
 }
