@@ -18,5 +18,7 @@ stage('Build') {
 stage ('Run') {
     sh 'java -jar target/my-app-1.0-SNAPSHOT.jar'
 }
- 
+stage ('Unarchive & Archive') {
+    sh 'tar -czf ${WORKSPACE}/pipeline-${BUILD_NUMBER}.tar.gz target/my-app-1.0-SNAPSHOT.jar'
+} 
 }
