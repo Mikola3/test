@@ -1,5 +1,11 @@
 // some comment2
 node {
+parameters {
+        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
+    }
+stage ('Greet') {
+    sh 'echo "${params.Greeting} World!"'
+}    
 def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
 stage('Clean workspace before build') {
@@ -21,14 +27,5 @@ stage ('Run') {
 stage ('Unarchive & Archive') {
     sh 'tar -czf ${WORKSPACE}/pipeline-${BUILD_NUMBER}.tar.gz target/my-app-1.0-SNAPSHOT.jar'
 }
-stage("parameterizing") {
-            steps {
-                script {
-                    if ("${params.Invoke_Parameters}" == "Yes") {
-                        currentBuild.result = 'ABORTED'
-                        error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
-                    }
-                }
-            }
- }   
+
 }
