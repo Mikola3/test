@@ -1,9 +1,5 @@
 // some comment2
-properties([
-  parameters([
-    string(name: 'DEPLOY_ENV', defaultValue: 'TESTING', description: 'The target environment', )
-   ])
-])
+properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
 node {
 def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
