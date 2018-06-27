@@ -1,5 +1,5 @@
 // some comment5
-node {
+node ("${SLAVE}") {
 properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
 
 stage ('echo') {
