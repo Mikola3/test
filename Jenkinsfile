@@ -5,7 +5,7 @@ properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], de
 stage ('echo') {
     echo "Will deploy to ${DEPLOY_ENV}"
 }
-def mvnHome = tool 'Maven 3.5.4'
+//def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
 stage('Clean workspace before build') {
     step([$class: 'WsCleanup'])
