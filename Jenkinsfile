@@ -11,9 +11,14 @@ properties([
 ])
     
     
+//stage ('echo') {
+//    echo "Will deploy to ${DEPLOY_ENV}"
+//}
+
 stage ('echo') {
-    echo "Will deploy to ${DEPLOY_ENV}"
-}
+    echo "Will deploy to ${params.CHOICE}"
+}    
+    
 //def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
 stage('Clean workspace before build') {
