@@ -15,10 +15,6 @@ properties([
 //    echo "Will deploy to ${DEPLOY_ENV}"
 //}
 
-stage ('echo') {
-    echo "Will deploy to ${params.CHOICE}"
-}    
-
 List createChoicesWithPreviousChoice(List defaultChoices, String previousChoice) {
     if (previousChoice == null) {
        return defaultChoices
@@ -27,6 +23,12 @@ List createChoicesWithPreviousChoice(List defaultChoices, String previousChoice)
     choices.add(0, previousChoice)
     return choices
 }    
+    
+stage ('echo') {
+    echo "Will deploy to ${params.CHOICE}"
+}    
+
+  
     
 //def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
