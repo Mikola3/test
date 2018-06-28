@@ -1,13 +1,30 @@
 // some comment8
 node (label: 'slave') {
     
-properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
+//properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
    
   
-stage ('echo') {
-    echo "Will deploy to ${DEPLOY_ENV}"
-}
+//stage ('echo') {
+//    echo "Will deploy to ${DEPLOY_ENV}"
+//}
 
+properties(
+[
+        [
+                $class              : 'ParametersDefinitionProperty',
+                parameterDefinitions: [
+                        [
+                                $class     : 'ChoiceParameterDefinition',
+                                choices    : 'aaa\nbbb',
+                                description: 'select your choice : ',
+                                name       : 'choice1'
+                        ],
+                        [
+                                $class     : 'ChoiceParameterDefinition',
+                                choices    : 'ccc\nddd',
+                                description: 'select another choice : ',
+                                name       : 'choice2'
+                        ]    
 
     
 //def mvnHome = tool 'Maven 3.5.4'
