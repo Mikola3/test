@@ -28,7 +28,8 @@ def userInput = input(
 
  userInput?.findAll{ it.value }?.each {
 
-    println it.key.toString()    
+    println it.key.toString()
+ }    
     
 //properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
    
