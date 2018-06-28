@@ -1,4 +1,4 @@
-// some comment7
+// some comment8
 node (label: 'slave') {
     
 properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
