@@ -8,24 +8,37 @@ node (label: 'slave') {
 //    echo "Will deploy to ${DEPLOY_ENV}"
 //}
 
-properties(
-[
-        [
-                $class              : 'ParametersDefinitionProperty',
-                parameterDefinitions: [
-                        [
-                                $class     : 'ChoiceParameterDefinition',
-                                choices    : 'aaa\nbbb',
-                                description: 'select your choice : ',
-                                name       : 'choice1'
-                        ],
-                        [
-                                $class     : 'ChoiceParameterDefinition',
-                                choices    : 'ccc\nddd',
-                                description: 'select another choice : ',
-                                name       : 'choice2'
-                        ]    
+    
+pipeline {
+    agent any
+    stages {
+        stage("robot test") {
+            steps {
+                script {
+                    MYLIST = []
+                    MYLIST += "param-one"
+                    MYLIST += "param-two"
+                    MYLIST += "param-three"
+                    MYLIST += "param-four"
+                    MYLIST += "param-five"
 
+                    for (def element = 0; element < MYLIST.size(); element++) {
+                        build(
+                            job: 'parameterized-job',
+                            parameters: [
+                                [
+                                    $class: 'StringParameterValue',
+                                    name: 'MYLIST',
+                                    value: MYLIST[element]
+                                ]
+                            ]
+                        )
+                    }
+                }
+            }
+        }
+    }
+}    
     
 //def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
