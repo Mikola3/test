@@ -1,24 +1,38 @@
 // some comment7
 node (label: 'slave') {
     
-properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
+//properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
+   
+  
+//stage ('echo') {
+//    echo "Will deploy to ${DEPLOY_ENV}"
+//}
 
-return new StringParameterValue(
-  getName(), 
-  defaultValue == null ? choices.get(0) : defaultValue, getDescription()
-);
-      
-    
-stage ('echo') {
-    echo "Will deploy to ${DEPLOY_ENV}"
+defaultChoices = ["foo", "bar", "baz"]
+choices = createChoicesWithPreviousChoice(defaultChoices, "${params.CHOICE}")
+
+properties([
+    parameters([
+        choice(name: "CHOICE", choices: choices.join("\n"))
+    ])   
+])
+
+
+node {
+    stage('stuff') {
+        sh("echo ${params.CHOICE}")
+    }
 }
 
-  
-stage ('echo') {
-    echo "Will deploy to ${params.CHOICE}"
+List createChoicesWithPreviousChoice(List defaultChoices, String previousChoice) {
+    if (previousChoice == null) {
+       return defaultChoices
+    }
+    choices = defaultChoices.minus(previousChoice)
+    choices.add(0, previousChoice)
+    return choices
 }    
 
-  
     
 //def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
