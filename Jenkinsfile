@@ -8,7 +8,7 @@ node (label: 'slave') {
 //    echo "Will deploy to ${DEPLOY_ENV}"
 //}
 
-    
+#!/usr/bin/env groovy    
 stage("parameterizing") {
             steps {
                 script {
