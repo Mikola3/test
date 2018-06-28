@@ -1,29 +1,19 @@
 // some comment7
 node (label: 'slave') {
-//properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
-defaultChoices = ["TESTING", "STAGING", "PRODUCTION"]
-choices = createChoicesWithPreviousChoice(defaultChoices, "${params.CHOICE}")
+    
+properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
 
-properties([
-    parameters([
-        choice(name: "CHOICE", choices: choices.join("\n"))
-    ])   
-])
+return new StringParameterValue(
+  getName(), 
+  defaultValue == null ? choices.get(0) : defaultValue, getDescription()
+);
+      
     
-    
-//stage ('echo') {
-//    echo "Will deploy to ${DEPLOY_ENV}"
-//}
+stage ('echo') {
+    echo "Will deploy to ${DEPLOY_ENV}"
+}
 
-List createChoicesWithPreviousChoice(List defaultChoices, String previousChoice) {
-    if (previousChoice == null) {
-       return defaultChoices
-    }
-    choices = defaultChoices.minus(previousChoice)
-    choices.add(0, previousChoice)
-    return choices
-}    
-    
+  
 stage ('echo') {
     echo "Will deploy to ${params.CHOICE}"
 }    
