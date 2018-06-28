@@ -1,7 +1,16 @@
 // some comment7
 node (label: 'slave') {
-properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
+//properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
+defaultChoices = ["TESTING", "STAGING", "PRODUCTION"]
+choices = createChoicesWithPreviousChoice(defaultChoices, "${params.CHOICE}")
 
+properties([
+    parameters([
+        choice(name: "CHOICE", choices: choices.join("\n"))
+    ])   
+])
+    
+    
 stage ('echo') {
     echo "Will deploy to ${DEPLOY_ENV}"
 }
