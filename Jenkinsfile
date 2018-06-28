@@ -1,25 +1,17 @@
 // some comment8
 
+// for BooleanParameter
 def createBooleanParameter(String desc, String value){
-
    return [$class: 'BooleanParameterDefinition', defaultValue: true, description: desc, name: value]
-
 }
-
-
 
 node (label: 'slave') {
   
 def userInput = input(
-
  id: 'userInput', message: 'The below Scenarios failed, let\'s rerun them?', parameters: [
-
-    createBooleanParameter('ScenarioA','Platform1-VariantA'),
-
-    createBooleanParameter('ScenarioB','Platform1-VariantB'),
-
-    createBooleanParameter('ScenarioC','Platform3-VariantA')
-
+    createBooleanParameter('ENV_1','TESTING'),
+    createBooleanParameter('ENV_2','STAGING'),
+    createBooleanParameter('ENV_3','PRODUCTION')
  ])
 
  
@@ -27,10 +19,11 @@ def userInput = input(
  // then iterate through the list of parameters which are enable
 
  userInput?.findAll{ it.value }?.each {
-
     println it.key.toString()
  }    
-    
+  
+
+// this was for active choice parameters    
 //properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
    
   
