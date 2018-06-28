@@ -1,5 +1,34 @@
 // some comment8
+
+def createBooleanParameter(String desc, String value){
+
+   return [$class: 'BooleanParameterDefinition', defaultValue: true, description: desc, name: value]
+
+}
+
+
+
 node (label: 'slave') {
+  
+def userInput = input(
+
+ id: 'userInput', message: 'The below Scenarios failed, let\'s rerun them?', parameters: [
+
+    createBooleanParameter('ScenarioA','Platform1-VariantA'),
+
+    createBooleanParameter('ScenarioB','Platform1-VariantB'),
+
+    createBooleanParameter('ScenarioC','Platform3-VariantA')
+
+ ])
+
+ 
+ // BooleanParameters are based on Key=> String based and Value=> Boolean based
+ // then iterate through the list of parameters which are enable
+
+ userInput?.findAll{ it.value }?.each {
+
+    println it.key.toString()    
     
 //properties([parameters([choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'The target environment', name: 'DEPLOY_ENV')])])
    
@@ -8,16 +37,6 @@ node (label: 'slave') {
 //    echo "Will deploy to ${DEPLOY_ENV}"
 //}
 
-#!/usr/bin/env groovy    
-stage("parameterizing") {
-            steps {
-                script {
-                    if ("${params.Invoke_Parameters}" == "Yes") {
-                        currentBuild.result = 'ABORTED'
-                        error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
-                    }
-                }
-}
     
 //def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
