@@ -9,36 +9,15 @@ node (label: 'slave') {
 //}
 
     
-pipeline {
-    agent any
-    stages {
-        stage("robot test") {
+stage("parameterizing") {
             steps {
                 script {
-                    MYLIST = []
-                    MYLIST += "param-one"
-                    MYLIST += "param-two"
-                    MYLIST += "param-three"
-                    MYLIST += "param-four"
-                    MYLIST += "param-five"
-
-                    for (def element = 0; element < MYLIST.size(); element++) {
-                        build(
-                            job: 'parameterized-job',
-                            parameters: [
-                                [
-                                    $class: 'StringParameterValue',
-                                    name: 'MYLIST',
-                                    value: MYLIST[element]
-                                ]
-                            ]
-                        )
+                    if ("${params.Invoke_Parameters}" == "Yes") {
+                        currentBuild.result = 'ABORTED'
+                        error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
                     }
                 }
-            }
-        }
-    }
-}    
+}
     
 //def mvnHome = tool 'Maven 3.5.4'
 // Maven 3.5.4    
